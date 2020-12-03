@@ -13,7 +13,6 @@ defmodule Advent.Year2020.Day02Test do
     assert part1(@input) == 2
   end
 
-  @tag :wip
   test "part2" do
     assert part2(@input) == 1
   end
