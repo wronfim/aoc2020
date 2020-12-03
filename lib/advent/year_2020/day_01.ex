@@ -1,25 +1,22 @@
 # https://adventofcode.com/2020/day/1
 
 defmodule Advent.Year2020.Day01 do
-  def part1(input) when is_binary(input) do
-    input
-    |> str_to_list_of_numbers()
-    |> part1()
-  end
-
   def part1(input) do
-    {n1, n2} = find_sum_target(input, 2020)
+    {n1, n2} =
+      input
+      |> preprocess()
+      |> find_sum_target(2020)
     n1 * n2
   end
 
   def part2(input) when is_binary(input) do
     input
-    |> str_to_list_of_numbers()
+    |> preprocess()
     |> part2()
   end
 
   def part2([n1 | tail]) do
-    case find_sum_target(tail, abs(n1-2020)) do
+    case find_sum_target(tail, abs(n1 - 2020)) do
       nil -> part2(tail)
       {n2, n3} -> n1 * n2 * n3
     end
@@ -35,9 +32,10 @@ defmodule Advent.Year2020.Day01 do
     end
   end
 
-  defp str_to_list_of_numbers(input) do
+  defp preprocess(input) do
     input
     |> String.split("\n")
+    |> Enum.reject(& &1 =="")
     |> Enum.map(&String.to_integer/1)
   end
 end

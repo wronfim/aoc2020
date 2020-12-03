@@ -1,3 +1,5 @@
+# https://adventofcode.com/2020/day/2
+
 defmodule Advent.Year2020.Day02 do
   def part1(input) do
     input
@@ -9,22 +11,24 @@ defmodule Advent.Year2020.Day02 do
     |> Enum.count()
   end
 
+  def part2(input) do
+    input
+    |> preprocess()
+    |> Enum.filter(&validate_password/1)
+    |> Enum.count()
+  end
+
+  defp validate_password(%{password: password, min: min, max: max, letter: letter}) do
+    a = String.at(password, min - 1) == letter
+    b = String.at(password, max - 1) == letter
+    xor(a, b)
+  end
+
   defp count_letter(password, letter) do
     password
     |> String.graphemes()
     |> Enum.frequencies()
     |> Map.get(letter, 0)
-  end
-
-  def part2(input) do
-    input
-    |> preprocess()
-    |> Enum.filter(fn entry ->
-      a = String.at(entry.password, entry.min-1) == entry.letter
-      b = String.at(entry.password, entry.max-1) == entry.letter
-      xor(a, b)
-    end)
-    |> Enum.count()
   end
 
   defp xor(a, b), do: (a or b) and not (a and b)
