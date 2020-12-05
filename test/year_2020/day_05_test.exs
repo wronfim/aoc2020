@@ -6,6 +6,7 @@ defmodule Advent.Year2020.Day05Test do
   @input """
   FBFBBFFRLR
   """
+
   test "part1" do
     assert part1(@input) == 357
   end

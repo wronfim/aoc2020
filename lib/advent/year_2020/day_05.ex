@@ -9,36 +9,6 @@ defmodule Advent.Year2020.Day05 do
     |> Enum.max()
   end
 
-  defp find_row(["B" | tail], {low, high}) when low < high - 1 do
-    half = ((high - low) / 2) |> Float.round()
-    find_row(tail, {low + half, high})
-  end
-
-  defp find_row(["F" | tail], {low, high}) when low < high - 1 do
-    half = ((high - low) / 2) |> Float.round()
-    find_row(tail, {low, high - half})
-  end
-
-  defp find_row(["B" | tail], {low, high}), do: {Kernel.trunc(high), tail}
-  defp find_row(["F" | tail], {low, high}), do: {Kernel.trunc(low), tail}
-
-  defp find_column(["R" | tail], {low, high}) when low < high - 1 do
-    half = ((high - low) / 2) |> Float.round()
-    find_column(tail, {low + half, high})
-  end
-
-  defp find_column(["L" | tail], {low, high}) when low < high - 1 do
-    half = ((high - low) / 2) |> Float.round()
-    find_column(tail, {low, high - half})
-  end
-
-  defp find_column(["R" | tail], {low, high}), do: Kernel.trunc(high)
-  defp find_column(["L" | tail], {low, high}), do: Kernel.trunc(low)
-
-  defp find_my_seat([seat | _tail] = list), do: find_my_seat(list, seat)
-  defp find_my_seat([seat | tail], seat), do: find_my_seat(tail, seat + 1)
-  defp find_my_seat(_, seat), do: seat
-
   def part2(input) do
     input
     |> preprocess()
@@ -49,6 +19,30 @@ defmodule Advent.Year2020.Day05 do
     |> Enum.sort()
     |> find_my_seat()
   end
+
+  defp find_row(["B" | tail], {low, high} = range) when low < high - 1, do:
+    find_row(tail, {low + middle(range), high})
+
+  defp find_row(["F" | tail], {low, high} = range) when low < high - 1, do:
+    find_row(tail, {low, high - middle(range)})
+
+  defp find_row(["B" | tail], {_low, high}), do: {Kernel.trunc(high), tail}
+  defp find_row(["F" | tail], {low, _high}), do: {Kernel.trunc(low), tail}
+
+  defp find_column(["R" | tail], {low, high}=range) when low < high - 1, do:
+    find_column(tail, {low + middle(range), high})
+
+  defp find_column(["L" | tail], {low, high} = range) when low < high - 1, do:
+    find_column(tail, {low, high - middle(range)})
+
+  defp find_column(["R" | tail], {_low, high}), do: Kernel.trunc(high)
+  defp find_column(["L" | tail], {low, _high}), do: Kernel.trunc(low)
+
+  defp middle({low, high}), do: Float.round((high - low) / 2)
+
+  defp find_my_seat([seat | _tail] = list), do: find_my_seat(list, seat)
+  defp find_my_seat([seat | tail], seat), do: find_my_seat(tail, seat + 1)
+  defp find_my_seat(_, seat), do: seat
 
   defp preprocess(input) do
     input
