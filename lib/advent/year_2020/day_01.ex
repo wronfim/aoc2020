@@ -6,6 +6,7 @@ defmodule Advent.Year2020.Day01 do
       input
       |> preprocess()
       |> find_sum_target(2020)
+
     n1 * n2
   end
 
@@ -35,7 +36,7 @@ defmodule Advent.Year2020.Day01 do
   defp preprocess(input) do
     input
     |> String.split("\n")
-    |> Enum.reject(& &1 =="")
+    |> Enum.reject(&(&1 == ""))
     |> Enum.map(&String.to_integer/1)
   end
 end

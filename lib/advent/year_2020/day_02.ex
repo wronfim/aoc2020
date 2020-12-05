@@ -41,6 +41,7 @@ defmodule Advent.Year2020.Day02 do
       [policy, password] = String.split(entry, ": ")
       [minmax, letter] = String.split(policy, " ")
       [min, max] = String.split(minmax, "-")
+
       %{
         min: String.to_integer(min),
         max: String.to_integer(max),

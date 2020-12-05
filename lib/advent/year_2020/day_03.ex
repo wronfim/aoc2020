@@ -28,6 +28,7 @@ defmodule Advent.Year2020.Day03 do
   defp count_trees(toboggan, {right, down, _bottom}) do
     row = Enum.at(toboggan, down)
     pos = String.length(row)
+
     row
     |> String.at(rem(right, pos))
     |> String.graphemes()
