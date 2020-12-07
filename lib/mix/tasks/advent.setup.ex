@@ -42,12 +42,18 @@ defmodule Mix.Tasks.Advent.Setup do
 
         import Advent.Year#{year}.Day#{day}
 
+        @input \"\"\"
+
+        \"\"\"
+
+        @input Advent.read(year, day)
+
         test "part1" do
-          assert part1("input") == "Your Answer."
+          assert part1("input") == nil
         end
 
         test "part2" do
-          assert part2("input") == "Your Answer."
+          assert part2("input") == nil
         end
       end
       """
@@ -64,12 +70,17 @@ defmodule Mix.Tasks.Advent.Setup do
 
     contents = """
     defmodule Advent.Year#{year}.Day#{day} do
-      def part1(_input) do
-        "Your Answer."
+      def part1(input) do
+        input
       end
 
-      def part2(_input) do
-        "Your Answer."
+      def part2(input) do
+        input
+      end
+
+      defp preprocess(input) do
+        input
+        |> IO.inspect
       end
     end
     """
