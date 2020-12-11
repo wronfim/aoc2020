@@ -25,6 +25,7 @@ defmodule Advent.MixProject do
       {:finch, "0.5.1"},
       {:math, "0.5.0"},
       {:jason, "1.2.2"},
+      {:lru_cache, "~> 0.1.0"},
       {:mix_test_watch, "1.0.2", runtime: false}
     ]
   end

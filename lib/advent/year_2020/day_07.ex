@@ -6,7 +6,6 @@ defmodule Advent.Year2020.Day07 do
     |> resolve(["shiny gold"], [], [])
   end
 
-
   def part2(input) do
     input
     |> preprocess()

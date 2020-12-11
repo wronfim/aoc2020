@@ -46,14 +46,15 @@ defmodule Mix.Tasks.Advent.Setup do
 
         \"\"\"
 
-        @input Advent.read(year, day)
+        @input Advent.read(#{year}, #{day})
 
+        @tag :wip
         test "part1" do
-          assert part1("input") == nil
+          assert part1(@input) == nil
         end
 
         test "part2" do
-          assert part2("input") == nil
+          assert part2(@input) == nil
         end
       end
       """
@@ -72,15 +73,19 @@ defmodule Mix.Tasks.Advent.Setup do
     defmodule Advent.Year#{year}.Day#{day} do
       def part1(input) do
         input
+        |> preprocess()
+        |> IO.inspect
       end
 
       def part2(input) do
         input
+        |> preprocess()
       end
 
       defp preprocess(input) do
         input
-        |> IO.inspect
+        |> String.split("\n")
+        |> Enum.reject(& &1 == "")
       end
     end
     """

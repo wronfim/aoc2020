@@ -15,13 +15,11 @@ defmodule Advent.Year2020.Day07Test do
   dotted black bags contain no other bags.
   """
 
-  @input Advent.read(2020, 7)
-
   test "part1" do
     assert part1(@input) == 4
   end
 
   test "part2" do
-    assert part2(@input) == nil
+    assert part2(@input) == 32
   end
 end
